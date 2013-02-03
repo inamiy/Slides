@@ -1023,20 +1023,30 @@
       $.Widget.prototype._setOption.apply(this,arguments);
     },
     destroy: function() {
-			
-			this.slidesContainer.contents().unwrap();
-			
-			this.slidesControl.contents().unwrap();
+
+			// destroy fix: https://github.com/nathansearles/Slides/issues/393
+			if (this.slidesContainer) {
+				this.slidesContainer.contents().unwrap();
+			}
+
+			if (this.slidesControl) {
+				this.slidesControl.contents().unwrap();
+			}
 			
 			this.element.unbind();
-			
-			this.pagination.remove();
-			
-			this.nextButton.remove();
-			
-			this.prevButton.remove();
-			
-			this.slides.attr( "style", "" );
+
+			if (this.pagination) {
+				this.pagination.remove();
+			}
+			if (this.nextButton) {
+				this.nextButton.remove();
+			}
+			if (this.prevButton) {
+				this.prevButton.remove();
+			}
+			if (this.slides) {
+				this.slides.attr( "style", "" );
+			}
 			
       $.Widget.prototype.destroy.call(this);
     },
